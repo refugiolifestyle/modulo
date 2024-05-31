@@ -1,5 +1,5 @@
 {
-  "name": "next-auth",
+  "name": "refugio-modulo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "@heroicons/react": "^1.0.1",
     "firebase": "^9.21.0",
+    "firebaseui": "^6.1.0",
     "html2canvas": "^1.4.1",
     "moment": "^2.29.4",
     "next": "10.2.2",

@@ -6,15 +6,15 @@ export const Page = ({ title, actions, children }) => {
     <Head>
       <title>{title}</title>
     </Head>
-    <div className="bg-indigo-800 pb-16">
-      <HeaderNavigation current={title} />
-      <header className="max-w-7xl mx-auto px-6 xl:px-0 pt-16 pb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <HeaderNavigation />
+    <div className="max-w-7xl mx-6 xl:mx-auto">
+      <header className="flex flex-col sm:flex-row justify-between items-center md:items-end gap-4 mb-4 mt-12">
         <h1 className="text-2xl font-bold text-white">{title}</h1>
         {actions}
       </header>
+      <main className="bg-white shadow-2xl">
+        {children}
+      </main>
     </div>
-    <main className="max-w-7xl bg-white rounded-lg shadow-2xl -mt-16 p-6 my-10 mx-6 xl:mx-auto">
-      {children}
-    </main>
   </>;
 }

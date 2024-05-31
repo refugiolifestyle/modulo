@@ -3,20 +3,15 @@ import { useEffect, useState } from "react";
 import { firebaseDatabase } from "../configs/firebase";
 
 export const useConfigService = () => {
-  const [config, setConfig] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [config, setConfig] = useState({})
+  let query = ref(firebaseDatabase, 'configuracoes')
 
   useEffect(() => {
-    let query = ref(firebaseDatabase, 'configuracoes')
+    let unsubscribe = onValue(query, 
+      (snapshot) => setConfig(snapshot.val()))
     
-    return onValue(query, (snapshot) => {
-      setConfig(snapshot.val())
-      setLoading(false);
-    })
+      return () => unsubscribe()
   }, [])
 
-  return {
-    ...config,
-    loading
-  }
+  return config
 }
