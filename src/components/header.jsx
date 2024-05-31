@@ -35,7 +35,7 @@ export const HeaderNavigation = () => {
     },
   ]
   return <Menubar
-    className="px-6 xl:px-32 py-4 flex justify-between"
+    className="px-6 xl:px-32 py-4 flex justify-between shadow-xl"
     style={{ borderRadius: 0}}
     model={navigation}
     start={<img
