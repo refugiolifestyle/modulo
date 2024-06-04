@@ -9,16 +9,15 @@ import { useSemestresService } from '../../services/useSemestresService';
 import { useDiasService } from '../../services/useDiasService';
 import { useAnosService } from '../../services/useAnosService';
 
-const dataColumns = [
+export const dataColumns = [
   'Nome',
   'Módulo',
-  'Ano',
-  'Semestre',
   'Dia',
+  'Semestre',
+  'Ano',
   'Horário',
   'Professores',
-  'Monitores',
-  'Local'
+  'Monitores'
 ];
 
 export default function TableTurmas({ turmas, loading, columnsExtras, columnsDefault }) {
@@ -38,7 +37,6 @@ export default function TableTurmas({ turmas, loading, columnsExtras, columnsDef
     dia: { value: null, matchMode: FilterMatchMode.IN },
     professores: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] },
     monitores: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] },
-    local: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] }
   });
 
   useEffect(() => {
@@ -78,13 +76,13 @@ export default function TableTurmas({ turmas, loading, columnsExtras, columnsDef
         display="chip" />
     </div>}
     paginator
-    rows={15}
+    rows={5}
     rowsPerPageOptions={[5, 15, 30, 50, 100]}
     multiSortMeta={[{ field: 'nome', order: 1 }]}
     sortOrder={1}
     sortMode="multiple"
     removableSort
-    dataKey="uuid"
+    dataKey="nome"
     filters={filters}>
     {visibleColumns.includes('Nome')
       ? <Column
@@ -107,16 +105,22 @@ export default function TableTurmas({ turmas, loading, columnsExtras, columnsDef
         header="Módulo"
         sortable />
       : null}
-    {visibleColumns.includes('Ano')
+    {visibleColumns.includes('Dia')
       ? <Column
-        key="ano"
-        field="ano"
+        key="dia"
+        field="dia"
         filter
-        filterField="ano"
-        filterElement={options => <MultiSelect filter value={options.value} options={anos} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Ano" className="p-column-filter" />}
+        filterField="dia"
+        filterElement={options => <MultiSelect filter value={options.value} options={dias} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Dia" className="p-column-filter" />}
         showFilterMatchModes={false}
-        header="Ano"
+        header="Dia"
         sortable />
+      : null}
+    {visibleColumns.includes('Horário')
+      ? <Column
+        key="horario"
+        field="horario"
+        header="Horário" />
       : null}
     {visibleColumns.includes('Semestre')
       ? <Column
@@ -129,25 +133,17 @@ export default function TableTurmas({ turmas, loading, columnsExtras, columnsDef
         header="Semestre"
         sortable />
       : null}
-    {visibleColumns.includes('Dia')
+    {visibleColumns.includes('Ano')
       ? <Column
-        key="dia"
-        field="dia"
+        key="ano"
+        field="ano"
         filter
-        filterField="dia"
-        filterElement={options => <MultiSelect filter value={options.value} options={dias} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Dia" className="p-column-filter" />}
+        filterField="ano"
+        filterElement={options => <MultiSelect filter value={options.value} options={anos} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Ano" className="p-column-filter" />}
         showFilterMatchModes={false}
-        header="Dia"
+        header="Ano"
         sortable />
       : null}
-
-    {visibleColumns.includes('Horário')
-      ? <Column
-        key="horario"
-        field="horario"
-        header="Horário" />
-      : null}
-
     {visibleColumns.includes('Professores')
       ? <Column
         sortable
@@ -157,7 +153,7 @@ export default function TableTurmas({ turmas, loading, columnsExtras, columnsDef
         filter
         filterPlaceholder="Filtrar por Professores"
         header="Professores"
-        body={linha => linha.professores.join(', ')} />
+        body={linha => linha.professores && linha.professores.join(', ')} />
       : null}
     {visibleColumns.includes('Monitores')
       ? <Column
@@ -167,18 +163,8 @@ export default function TableTurmas({ turmas, loading, columnsExtras, columnsDef
         filter
         filterPlaceholder="Filtrar por Monitores"
         header="Monitores"
-        sortable 
-        body={linha => linha.monitores.join(', ')} />
-      : null}
-    {visibleColumns.includes('Local')
-      ? <Column
-        key="local"
-        field="local"
-        filterField="local"
-        filter
-        filterPlaceholder="Filtrar por Local"
-        header="Local"
-        sortable />
+        sortable
+        body={linha => linha.monitores && linha.monitores.join(', ')} />
       : null}
     {
       columnsExtras

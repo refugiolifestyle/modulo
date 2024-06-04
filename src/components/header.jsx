@@ -25,7 +25,7 @@ export const HeaderNavigation = () => {
     },
     {
       icon: "pi pi-file-edit",
-      label: "Frequencias",
+      label: "Frequências",
       url: "/frequencias",
     },
     {

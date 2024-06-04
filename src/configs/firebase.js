@@ -4,13 +4,14 @@ import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAce5qzeDtfYBqjsQHnWcZeJTyuVUQqiuA",
-  authDomain: "refugio-modulo.firebaseapp.com",
-  databaseURL: "https://refugio-modulo-default-rtdb.firebaseio.com",
-  projectId: "refugio-modulo",
-  storageBucket: "refugio-modulo.appspot.com",
-  messagingSenderId: "1053443583364",
-  appId: "1:1053443583364:web:1c1b8c3255cfe5de0b01d1"
+  apiKey: "AIzaSyDEu_-nRG99-IhhOmQQ94jXXz5hjnPsqcc",
+  authDomain: "refugio-89c1e.firebaseapp.com",
+  databaseURL: "https://refugio-89c1e-default-rtdb.firebaseio.com",
+  projectId: "refugio-89c1e",
+  storageBucket: "refugio-89c1e.appspot.com",
+  messagingSenderId: "948076519503",
+  appId: "1:948076519503:web:16f6156678d0fb5bbcca3a",
+  measurementId: "G-DLJJ5VJT0H"
 };
 
 const firebaseConfigTeste = {

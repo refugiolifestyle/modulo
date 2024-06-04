@@ -5,11 +5,11 @@ import TableAlunos from '../../components/tables/alunos';
 
 export default function Alunos() {
   const { alunos } = useAlunosService()
-  const { permitirMatricula } = useConfigService()
+  const { permitirMatriculaAlunos } = useConfigService()
 
   return <Page
     title="Alunos"
-    actions={permitirMatricula === true
+    actions={permitirMatriculaAlunos === true
       ? <a
         href='/alunos/cadastro'
         className="bg-white text-black px-3 py-2">

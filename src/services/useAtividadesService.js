@@ -7,6 +7,11 @@ export const TIPOS_ATIVIDADES = [
   'Atividade'
 ]
 
+export const SITUACAO_ATIVIDADES = [
+  'Aberta',
+  'Fechada'
+]
+
 export const useAtividadesService = () => {
   const [atividades, setAtividades] = useState([])
   let query = ref(firebaseDatabase, 'atividades')

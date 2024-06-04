@@ -9,7 +9,7 @@ export const Page = ({ title, actions, children }) => {
     <HeaderNavigation />
     <div className="max-w-7xl mx-6 xl:mx-auto">
       <header className="flex flex-col sm:flex-row justify-between items-center md:items-end gap-4 mb-4 mt-12">
-        <h1 className="text-2xl font-bold text-white">{title}</h1>
+        <h1 className="flex-1 text-2xl font-bold text-white">{title}</h1>
         {actions}
       </header>
       <main className="bg-white shadow-2xl">

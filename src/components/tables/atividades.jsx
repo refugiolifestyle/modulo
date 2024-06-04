@@ -5,27 +5,31 @@ import { DataTable } from 'primereact/datatable';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 import { Calendar } from 'primereact/calendar';
+import { Badge } from 'primereact/badge';
 import { useTurmasService } from '../../services/useTurmasService';
-import { TIPOS_ATIVIDADES } from '../../services/useAtividadesService';
+import { SITUACAO_ATIVIDADES, TIPOS_ATIVIDADES } from '../../services/useAtividadesService';
 
 const dataColumns = [
   'Turma',
-  'Tipo',
   'Nome',
-  'Data'
+  'Tipo',
+  'Pontuação máxima',
+  'Data',
+  'Situação'
 ];
 
 export default function TableAtividades({ atividades, loading, columnsExtras, columnsDefault }) {
   const { turmas } = useTurmasService()
-  const [visibleColumns, setVisibleColumns] = useState(columnsDefault ? columnsDefault : ['Turma', 'Tipo', 'Nome', 'Data']);
+  const [visibleColumns, setVisibleColumns] = useState(columnsDefault ? columnsDefault : dataColumns);
   const [countRealRows, setCountRealRows] = useState(0);
   const [globalFilterValue, setGlobalFilterValue] = useState('');
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     turma: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] },
-    tipo: { value: null, matchMode: FilterMatchMode.EQUALS },    
+    tipo: { value: null, matchMode: FilterMatchMode.EQUALS },
     nome: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }] },
     data: { value: null, matchMode: FilterMatchMode.EQUALS },
+    situacao: { value: null, matchMode: FilterMatchMode.EQUALS }
   });
 
   useEffect(() => {
@@ -67,7 +71,10 @@ export default function TableAtividades({ atividades, loading, columnsExtras, co
     paginator
     rows={15}
     rowsPerPageOptions={[5, 15, 30, 50, 100]}
-    multiSortMeta={[{ field: 'data', order: 1 }]}
+    multiSortMeta={[
+      { field: 'situacao', order: 1 },
+      { field: 'data', order: 2 }
+    ]}
     sortOrder={1}
     sortMode="multiple"
     removableSort
@@ -84,17 +91,6 @@ export default function TableAtividades({ atividades, loading, columnsExtras, co
         header="Turma"
         sortable />
       : null}
-      {visibleColumns.includes('Tipo')
-        ? <Column
-          key="tipo"
-          field="tipo"
-          filter
-          filterField="tipo"
-          filterElement={options => <MultiSelect filter value={options.value} options={TIPOS_ATIVIDADES} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Tipo" className="p-column-filter" />}
-          showFilterMatchModes={false}
-          header="Tipo"
-          sortable />
-        : null}
     {visibleColumns.includes('Nome')
       ? <Column
         key="nome"
@@ -103,6 +99,17 @@ export default function TableAtividades({ atividades, loading, columnsExtras, co
         filter
         filterPlaceholder="Filtrar por Nome"
         header="Nome"
+        sortable />
+      : null}
+    {visibleColumns.includes('Tipo')
+      ? <Column
+        key="tipo"
+        field="tipo"
+        filter
+        filterField="tipo"
+        filterElement={options => <MultiSelect filter value={options.value} options={TIPOS_ATIVIDADES} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Tipo" className="p-column-filter" />}
+        showFilterMatchModes={false}
+        header="Tipo"
         sortable />
       : null}
     {visibleColumns.includes('Data')
@@ -115,6 +122,26 @@ export default function TableAtividades({ atividades, loading, columnsExtras, co
         showFilterMatchModes={false}
         header="Data"
         sortable />
+      : null}
+    {visibleColumns.includes('Pontuação máxima')
+      ? <Column
+        key="pontuacao"
+        field="pontuacao"
+        header="Pontuação máxima" />
+      : null}
+    {visibleColumns.includes('Situação')
+      ? <Column
+        key="situacao"
+        field="situacao"
+        filter
+        filterField="situacao"
+        filterElement={options => <MultiSelect filter value={options.value} options={SITUACAO_ATIVIDADES} onChange={(e) => options.filterCallback(e.value)} placeholder="Filtrar por Situação" className="p-column-filter" />}
+        showFilterMatchModes={false}
+        header="Situação"
+        sortable
+        body={linha => linha.aberta
+          ? <Badge value="Aberta" severity="success"></Badge>
+          : <Badge value="Fechada" severity="warning"></Badge>} />
       : null}
     {
       columnsExtras
